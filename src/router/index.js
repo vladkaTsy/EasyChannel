@@ -1,22 +1,28 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Layout from '@/views/layout/Layout/index.vue';
+import ManageOrders from '@/components/ManageOrders/index.vue';
+import OrderDetails from '@/views/OrderDetails/index.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    redirect: '/manage-orders',
+    component: Layout,
+    children: [
+      {
+        path: 'manage-orders',
+        name: 'ManageOrders',
+        component: ManageOrders,
+      },
+    ],
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/order-details/:order_id',
+    name: 'OrderDetails',
+    component: OrderDetails,
   },
 ];
 
