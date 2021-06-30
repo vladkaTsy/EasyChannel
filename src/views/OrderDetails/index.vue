@@ -11,7 +11,7 @@
             <div class="bottom clearfix">
               <time class="time">{{ order.order_date }}</time>
               <div v-for="(field, name) in order" :key="name" class="text item">
-              {{'List item ' + field }}
+              {{name + ': ' + field }}
             </div>
               <el-button type="text" class="button">Operating</el-button>
             </div>
