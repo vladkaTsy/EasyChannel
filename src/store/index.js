@@ -18,15 +18,22 @@ export default new Vuex.Store({
   },
   actions: {
     async fetchOrders({ commit }, data) {
-      try {
-        const orders = await apiOrders(data);
-        console.log(orders.data);
-        commit('setOrders', orders.data);
-      } catch (err) {
-        console.error(err);
-      }
+      return new Promise((resolve, reject) => {
+        apiOrders(data)
+          .then((orders) => {
+            console.log(orders.data);
+            commit('setOrders', orders.data);
+            resolve(orders.data.items);
+          })
+          .catch((error) => {
+            console.error(error);
+            reject(error);
+          });
+      });
     },
   },
-  modules: {
+  getters: {
+    totalOrders: (state) => state.totalOrders,
   },
+  modules: {},
 });

@@ -10,9 +10,16 @@
       style="width: 100%">
       <el-table-column
         label="Item"
-        width="180">
+        width="250">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.buyer.name }}</span>
+          <el-row type="flex">
+            <el-col>
+              <img src="@/assets/item.png" alt="@/assets/item.png"/>
+            </el-col>
+            <el-col>
+              <span style="margin-left: 10px">{{ scope.row.buyer.name }}</span>
+            </el-col>
+          </el-row>
         </template>
       </el-table-column>
       <el-table-column

@@ -2,15 +2,16 @@ import { apiDeleteOrder } from '@/api/orders';
 
 export default {
   data: () => ({
-    totalItems: 0,
+    tableData: [],
   }),
-  async created() {
-    await this.$store.dispatch('fetchOrders', { page: 1 });
-    this.totalItems = this.$store.state.totalOrders;
+  created() {
+    this.$store.dispatch('fetchOrders', { page: 1 }).then((response) => {
+      this.tableData = response;
+    });
   },
   computed: {
-    tableData() {
-      return this.$store.state.orders.length ? this.$store.state.orders : [];
+    totalItems() {
+      return this.$store.getters.totalOrders;
     },
   },
   methods: {
@@ -24,12 +25,13 @@ export default {
         console.log(res);
         this.tableData.splice(index, 1);
       } catch (err) {
-        console.log('kaka');
         console.error(err);
       }
     },
-    async onPaginationChange(value) {
-      await this.$store.dispatch('fetchOrders', { page: value });
+    onPaginationChange(value) {
+      this.$store.dispatch('fetchOrders', { page: value }).then((response) => {
+        this.tableData = response;
+      });
     },
   },
 };
